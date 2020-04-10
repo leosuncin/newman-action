@@ -1,29 +1,30 @@
-import {wait} from '../src/wait'
-import * as process from 'process'
-import * as cp from 'child_process'
-import * as path from 'path'
+import cp from 'child_process';
+import path from 'path';
+import process from 'process';
+
+import { wait } from '../src/wait';
 
 test('throws invalid number', async () => {
-  const input = parseInt('foo', 10)
-  await expect(wait(input)).rejects.toThrow('milliseconds not a number')
-})
+  const input = parseInt('foo', 10);
+  await expect(wait(input)).rejects.toThrow('milliseconds not a number');
+});
 
 test('wait 500 ms', async () => {
-  const start = new Date()
-  await wait(500)
-  const end = new Date()
-  const delta = Math.abs(end.getTime() - start.getTime())
-  expect(delta).toBeGreaterThan(450)
-})
+  const start = new Date();
+  await wait(500);
+  const end = new Date();
+  const delta = Math.abs(end.getTime() - start.getTime());
+  expect(delta).toBeGreaterThan(450);
+});
 
 // shows how the runner will run a javascript action with env / stdout protocol
 test('test runs', () => {
-  process.env['INPUT_MILLISECONDS'] = '500'
-  const ip = path.join(__dirname, '..', 'lib', 'main.js')
+  process.env['INPUT_MILLISECONDS'] = '500';
+  const ip = path.join(__dirname, '..', 'lib', 'main.js');
   const options: cp.ExecSyncOptions = {
-    env: process.env
-  }
+    env: process.env,
+  };
   expect(cp.execSync(`node ${ip}`, options).toString()).toMatch(
-    /Waiting 500 milliseconds/
-  )
-})
+    /Waiting 500 milliseconds/,
+  );
+});

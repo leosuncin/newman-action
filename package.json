@@ -3,29 +3,29 @@
   "version": "0.0.0",
   "private": true,
   "description": "Github Action for Running Postman collection with Newman",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leosuncin/neuman-action.git"
+  },
+  "author": "Jaime Leonardo Suncin Cruz <leosuncin@gmail.com>",
   "main": "lib/main.js",
   "scripts": {
-    "prebuild": "rimraf lib",
+    "all": "npm run build && npm run format && npm run lint && npm run pack && npm test",
     "build": "tsc -p tsconfig.build.json",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
     "lint": "eslint --ext .js,.ts .",
-    "prepack": "rimraf dist",
     "pack": "ncc build",
-    "test": "jest",
-    "all": "npm run build && npm run format && npm run lint && npm run pack && npm test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/leosuncin/neuman-action.git"
+    "prebuild": "rimraf lib",
+    "prepack": "rimraf dist",
+    "test": "jest"
   },
   "keywords": [
     "actions",
     "node",
     "setup"
   ],
-  "author": "Jaime Leonardo Suncin Cruz <leosuncin@gmail.com>",
-  "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.0"
   },
